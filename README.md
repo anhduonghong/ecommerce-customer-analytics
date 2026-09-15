@@ -1,20 +1,20 @@
 # E-Commerce Customer Analytics & Retention Intelligence Platform
 
-An end-to-end data analytics pipeline and business intelligence system leveraging the UCI Online Retail II dataset (over 200,000 sales records in uS). The project models customer lifecycle dynamics, retention curves, and monetary concentration using a Dimensional Star Schema, Cohort Retention Indexing ($M_0$--$M_5$), and Behavioral RFM Segmentation[cite: 1].
+An end-to-end data analytics pipeline and business intelligence system leveraging the UCI Online Retail II dataset (over 200,000 sales records in uS). The project models customer lifecycle dynamics, retention curves, and monetary concentration using a Dimensional Star Schema, Cohort Retention Indexing ($M_0$--$M_5$), and Behavioral RFM Segmentation.
 
 ---
 
 ## 1. Executive Summary & Core Metrics
 
-E-commerce businesses frequently encounter high customer acquisition costs (CAC) paired with steep early drop-offs[cite: 1]. This project audits and analyzes customer purchasing behavior across 2,724 validated accounts to identify retention drop-off patterns, uncover high-value segments, and prevent revenue leakage[cite: 1].
+E-commerce businesses frequently encounter high customer acquisition costs (CAC) paired with steep early drop-offs. This project audits and analyzes customer purchasing behavior across 2,724 validated accounts to identify retention drop-off patterns, uncover high-value segments, and prevent revenue leakage.
 
 | Metric | Measured Value | Operational Significance |
 | :--- | :--- | :--- |
-| Validated Customer Accounts | 2,724 accounts | Base after removing cancellations, guest IDs, and abnormal unit prices[cite: 1]. |
+| Validated Customer Accounts | 2,724 accounts | Base after removing cancellations, guest IDs, and abnormal unit prices. |
 | Average Customer Lifetime Value (CLV) | £1,255 | Benchmark revenue expectation across retained customer cohorts. |
-| Month 1 Churn Cliff | 65% – 75% | Steep drop-off observed immediately between acquisition ($M_0$) and $M_1$[cite: 1]. |
-| Pareto Revenue Concentration | Top 20%–25% generate >70% revenue | Disproportionate financial dependency on high-Monetary accounts[cite: 1]. |
-| Retention Payoff Threshold | >60% retention rate | Achieved once an account reaches their third completed order ($M_2+$)[cite: 1]. |
+| Month 1 Churn Cliff | 65% – 75% | Steep drop-off observed immediately between acquisition ($M_0$) and $M_1$. |
+| Pareto Revenue Concentration | Top 20%–25% generate >70% revenue | Disproportionate financial dependency on high-Monetary accounts. |
+| Retention Payoff Threshold | >60% retention rate | Achieved once an account reaches their third completed order ($M_2+$). |
 
 ---
 
@@ -25,26 +25,26 @@ E-commerce businesses frequently encounter high customer acquisition costs (CAC)
                        │
                        ▼
 [ Python Ingestion & Preprocessing (Pandas, NumPy) ]
-  - Filter cancellations (InvoiceNo 'C') & Quantity <= 0[cite: 1]
-  - Exclude null guest accounts (CustomerID IS NULL)[cite: 1]
-  - Deduplicate records & eliminate UnitPrice <= 0[cite: 1]
-  - Derive line-item revenue: TotalSpend = Quantity * UnitPrice[cite: 1]
+  - Filter cancellations (InvoiceNo 'C') & Quantity <= 0
+  - Exclude null guest accounts (CustomerID IS NULL)
+  - Deduplicate records & eliminate UnitPrice <= 0
+  - Derive line-item revenue: TotalSpend = Quantity * UnitPrice
                        │
                        ▼
 [ Relational Data Warehouse (PostgreSQL / MySQL Engine) ]
-  - Star Schema implementation (Fact_Transactions, Dim_Customer, Dim_Product, Dim_Date)[cite: 1]
+  - Star Schema implementation (Fact_Transactions, Dim_Customer, Dim_Product, Dim_Date)
   - Integrity constraints & indexing on foreign keys
                        │
                        ▼
 [ Analytical Transformation Engines (SQL CTEs & Window Functions) ]
-  - Cohort identification: MIN(InvoiceDate) OVER (PARTITION BY CustomerID)[cite: 1]
-  - Quantile scoring (NTILE / qcut) across Recency, Frequency, and Monetary dimensions[cite: 1]
+  - Cohort identification: MIN(InvoiceDate) OVER (PARTITION BY CustomerID)
+  - Quantile scoring (NTILE / qcut) across Recency, Frequency, and Monetary dimensions
                        │
                        ▼
 [ Business Intelligence & Reporting (Microsoft Power BI) ]
-  - Direct relational modeling (Star Schema, 1-to-many bidirectional relationships)[cite: 1]
-  - Dynamic DAX measures for MoM revenue, CLV, and cohort retention decay[cite: 1]
-  - Interactive multi-page dashboard with dynamic customer lookup slicers[cite: 1]
+  - Direct relational modeling (Star Schema, 1-to-many bidirectional relationships)
+  - Dynamic DAX measures for MoM revenue, CLV, and cohort retention decay
+  - Interactive multi-page dashboard with dynamic customer lookup slicers
 ```
 
 ---
@@ -53,17 +53,17 @@ E-commerce businesses frequently encounter high customer acquisition costs (CAC)
 
 ### Data Sanitization Protocol
 The pipeline applies deterministic filtering logic to guarantee data integrity[cite: 1]:
-* **Cancellations and Reversals:** Filtered records where `InvoiceNo` starts with `'C'` or `Quantity <= 0`[cite: 1].
-* **Guest Transactions:** Removed records where `CustomerID IS NULL` to prevent distortion in customer-level metrics[cite: 1].
-* **Price Anomalies:** Purged system adjustment rows and negative values where `UnitPrice <= 0`[cite: 1].
-* **Feature Engineering:** Calculated gross transaction value per line item as $\text{TotalSpend} = \text{Quantity} \times \text{UnitPrice}$[cite: 1].
+* **Cancellations and Reversals:** Filtered records where `InvoiceNo` starts with `'C'` or `Quantity <= 0`.
+* **Guest Transactions:** Removed records where `CustomerID IS NULL` to prevent distortion in customer-level metrics.
+* **Price Anomalies:** Purged system adjustment rows and negative values where `UnitPrice <= 0`.
+* **Feature Engineering:** Calculated gross transaction value per line item as $\text{TotalSpend} = \text{Quantity} \times \text{UnitPrice}$.
 
 ### Cohort Retention Indexing ($M_0$--$M_5$)
 * Mapped each customer's acquisition timestamp:
-  $$\text{First\_Purchase\_Month} = \min(\text{InvoiceDate}) \quad \text{over } \text{CustomerID} \text{ partition}$$[cite: 1]
-* Computed `Cohort_Index` as the zero-indexed month offset between current order date and initial purchase date[cite: 1].
+  $$\text{First\_Purchase\_Month} = \min(\text{InvoiceDate}) \quad \text{over } \text{CustomerID} \text{ partition}$$
+* Computed `Cohort_Index` as the zero-indexed month offset between current order date and initial purchase date.
 * Evaluated aggregate retention percentage across monthly boundaries:
-  $$\text{Retention Rate}_{n} = \frac{\text{Active Customers in Cohort at Month } n}{\text{Total Cohort Base at Month } 0} \times 100\%$$[cite: 1]
+  $$\text{Retention Rate}_{n} = \frac{\text{Active Customers in Cohort at Month } n}{\text{Total Cohort Base at Month } 0} \times 100\%$$
 
 ### RFM Quantile Segmentation
 Analyzed using the operational cutoff date $T = \max(\text{InvoiceDate}) + 1\text{ day}$[cite: 1]:
