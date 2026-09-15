@@ -1,4 +1,4 @@
-# E-Commerce Customer Analytics & Retention Intelligence Platform
+# E-Commerce Customer Segmentation Analytics
 
 An end-to-end data analytics pipeline and business intelligence system leveraging the UCI Online Retail II dataset (over 200,000 sales records in uS). The project models customer lifecycle dynamics, retention curves, and monetary concentration using a Dimensional Star Schema, Cohort Retention Indexing ($M_0-M_5$), and Behavioral RFM Segmentation.
 
