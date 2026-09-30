@@ -62,7 +62,45 @@ Across 146,478 validated transactions and 2,724 distinct customer profiles, anal
 * **Action:** Maintain strict safety stock levels for the top 20% SKU tier to eliminate stockout risk, and create bundles pairing fast-moving goods with higher-margin accessories.
 
 ---
+## Project Directory Structure
 
+```text
+ecommerce-customer-analytics/
+├── dags/                                 # Apache Airflow workflow orchestration
+├── dashboard/
+│   └── Ecommerce_Customer_Segmentation.pbix  # Interactive Power BI dashboards
+├── data/
+│   ├── incoming/                         # New landing daily transaction files
+│   ├── raw/                              # Original source dataset archive
+│   ├── processed/                        # Cleaned analytical tables for reporting
+│   └── archive/                          # Historical processed data files
+├── images/                               # Exported charts and dashboard screenshots
+│   ├── cohort_heatmap.png
+│   ├── cohort.png
+│   ├── executive.png
+│   ├── products.png
+│   ├── rfm_treemap.png
+│   └── rfm.png
+├── logs/
+│   └── pipeline.log                      # Automated execution runtime logs
+├── notebooks/
+│   └── customer_analysis.ipynb           # Exploratory analysis and prototyping
+├── src/                                  # Production ETL and analytical pipeline modules
+│   ├── __init__.py
+│   ├── config.py                         # System path and environment configurations
+│   ├── db.py                             # MySQL database connection management
+│   ├── extract.py                        # Ingestion and raw file reader
+│   ├── transform.py                      # Data cleansing and metric transformation
+│   ├── load.py                           # Batch insertion into MySQL database
+│   ├── cohort.py                         # Cohort retention matrix computation
+│   ├── rfm.py                            # Quantile based RFM segmentation engine
+│   ├── export.py                         # Aggregated data exporter for Power BI
+│   └── pipeline.py                       # Master pipeline orchestrator script
+├── .env.example                          # Environment configuration template
+├── .gitignore                            # Version control exclusion rules
+├── requirements.txt                      # Project library dependencies
+└── run_pipeline.bat                      # Scheduled task trigger script for Windows
+```
 ## System Architecture
 
 ```text
