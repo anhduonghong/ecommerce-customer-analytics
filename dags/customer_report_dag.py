@@ -3,13 +3,13 @@ Mount thư mục project vào container tại /opt/airflow/project và thêm và
 import sys
 from datetime import datetime, timedelta
 
-sys.path.insert(0, "/opt/airflow/project")  # sửa theo nơi bạn mount project
+sys.path.insert(0, "/opt/airflow/project")  
 
 from airflow import DAG
 try:
-    from airflow.providers.standard.operators.python import PythonOperator  # Airflow 3
+    from airflow.providers.standard.operators.python import PythonOperator 
 except ImportError:
-    from airflow.operators.python import PythonOperator  # Airflow 2
+    from airflow.operators.python import PythonOperator 
 
 from src.pipeline import run_analytics, run_etl
 
