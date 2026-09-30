@@ -1,4 +1,9 @@
+.venv/
 .env
+.kilo/
+logs/
+__pycache__/
+*.log
 Lab.pdf
 __pycache__/
 .ipynb_checkpoints/
