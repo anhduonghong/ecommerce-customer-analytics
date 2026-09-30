@@ -14,15 +14,15 @@ This project establishes an automated analytics pipeline and business intelligen
 The dataset is sourced from the UCI Machine Learning Repository, capturing actual transactions from a UK based online retailer specializing in gifts, novelty homeware, and decor. The store serves both individual retail consumers and small wholesale clients purchasing products in bulk.
 
 ### Data Scope and Granularity
-This study focuses on a 6 month continuous operational window from January 4, 2011 to June 30, 2011[cite: 10]:
+This study focuses on a 6 month continuous operational window from January 4, 2011 to June 30, 2011:
 
-* Raw Extract: Comprises 203,422 operational transaction lines across 8 core fields including InvoiceNo, StockCode, Description, Quantity, InvoiceDate, UnitPrice, CustomerID, and Country[cite: 10].
-* Cleaned Base: After eliminating records with missing customer IDs, handling cancelled orders, and removing unit price corrections, the pipeline isolates 146,478 verified purchase records[cite: 10].
-* Business Scale: The active dataset accounts for 2,724 unique customers, 7,402 completed orders, 3,119 active SKUs, generating 3,421,091.76 GBP in gross revenue at an Average Order Value of 462.18 GBP[cite: 10].
+* Raw Extract: Comprises 203,422 operational transaction lines across 8 core fields including InvoiceNo, StockCode, Description, Quantity, InvoiceDate, UnitPrice, CustomerID, and Country.
+* Cleaned Base: After eliminating records with missing customer IDs, handling cancelled orders, and removing unit price corrections, the pipeline isolates 146,478 verified purchase records.
+* Business Scale: The active dataset accounts for 2,724 unique customers, 7,402 completed orders, 3,119 active SKUs, generating 3,421,091.76 GBP in gross revenue at an Average Order Value of 462.18 GBP.
 
 ### Analytical Value
-* Hybrid Customer Personas: The presence of both low frequency individual shoppers and high volume wholesale buyers provides clear behavioral variance, ideal for 5 tier quantile RFM segmentation[cite: 10, 14].
-* Lifecycle Tracking: Continuous daily timestamps enable exact measurement of customer retention curves and identify organic repurchase rhythms across monthly acquisition cohorts[cite: 10, 11].
+* Hybrid Customer Personas: The presence of both low frequency individual shoppers and high volume wholesale buyers provides clear behavioral variance, ideal for 5 tier quantile RFM segmentation.
+* Lifecycle Tracking: Continuous daily timestamps enable exact measurement of customer retention curves and identify organic repurchase rhythms across monthly acquisition cohorts.
 ## Target Business Questions
 
 This project answers four core questions essential for customer retention and revenue growth:
